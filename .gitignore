@@ -1,0 +1,13 @@
+*.classpath
+*.recommenders
+*.metadata
+*.jar
+*.settings
+*.project
+
+*data
+*output
+*test
+*libs
+*bin
+
