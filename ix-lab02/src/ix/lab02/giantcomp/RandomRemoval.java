@@ -1,6 +1,5 @@
 package ix.lab02.giantcomp;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,22 +24,28 @@ public class RandomRemoval implements EdgeRemovalStrategy {
     @Override
     public EdgeRemovalResults apply(SimpleGraph<String, DefaultEdge> graph) {
         EdgeRemovalResults results = new EdgeRemovalResults();
-        int initSize = GiantComponent.gcSize(graph);
-        results.add(initSize);
+        
+        // Order the edges randomly
         List<DefaultEdge> listEdges = new LinkedList<DefaultEdge>(graph.edgeSet());
         Collections.shuffle(listEdges);
         
+        // Compute giant component initial size
+        int initSize = GiantComponent.gcSize(graph);
+
         int currentSize = initSize;
+        
+        results.add(initSize);
+
+        int i = 0;
 
         while (currentSize > 0.2 * initSize) {
-        	List<DefaultEdge> chunk = listEdges.subList(0, 100);
+        	List<DefaultEdge> chunk = listEdges.subList(100*i, 100*i + 100);
         	graph.removeAllEdges(chunk);
-        	
-        	// Deletes chunk from listEdges
-        	chunk.clear();
 
         	currentSize = GiantComponent.gcSize(graph);
         	results.add(currentSize);
+
+        	++i;
         }
 
         return results;
