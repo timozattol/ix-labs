@@ -1,10 +1,12 @@
 package ix.lab02.giantcomp;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ix.utils.EdgeRemovalResults;
 
+import org.jgrapht.alg.NeighborIndex;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -18,20 +20,50 @@ public class TargetedRemoval implements EdgeRemovalStrategy {
     /**
      * Removes 100 edges in a clever way until the giant component reaches 20%
      * of its initial size.
+     * This algorithm only computes the strength of vertices at the beginning,
+     * it would be too expensive to recalculate each time we remove edges from the graph.
      *
      * @param graph  the graph
      **/
     @Override
     public EdgeRemovalResults apply(SimpleGraph<String, DefaultEdge> graph) {
         EdgeRemovalResults results = new EdgeRemovalResults();
+        
+        NeighborIndex<String, DefaultEdge> cachedGraph = 
+        		new NeighborIndex<String, DefaultEdge>(graph);
+
+        Map<DefaultEdge, Integer> mapEdgeStrength = new HashMap<DefaultEdge, Integer>();
+        
+        // Construct the mapping of edge - strength, with the strength
+        // being the number of common neighbors between the vertices of the edge.
+        for (DefaultEdge edge: graph.edgeSet()) {
+			String sourceVertex = graph.getEdgeSource(edge);
+			String targetVertex = graph.getEdgeTarget(edge);
+			mapEdgeStrength.put(edge, GiantComponent.numCommonNeighbours(
+							cachedGraph, sourceVertex, targetVertex));
+		}
+        
+        // Order regarding strength
+        List<DefaultEdge> orderedEdges = TargetedRemoval.orderedEdges(mapEdgeStrength);
+        
+        // Compute giant component initial size
         int initSize = GiantComponent.gcSize(graph);
+
+        int currentSize = initSize;
+
         results.add(initSize);
+        
+        int i = 0;
 
-        // TODO Complete this method.
+        while (currentSize > 0.2 * initSize) {
+        	List<DefaultEdge> chunk = orderedEdges.subList(100*i, 100*i + 100);
+        	graph.removeAllEdges(chunk);
 
-        // You might find the following helpful:
-        // - the class org.jgrapht.alg.NeighborIndex
-        // - the function orderedEdges()
+        	currentSize = GiantComponent.gcSize(graph);
+        	results.add(currentSize);
+        	
+        	++i;
+		}
 
         return results;
     }
