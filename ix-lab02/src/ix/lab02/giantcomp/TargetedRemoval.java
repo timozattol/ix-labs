@@ -34,8 +34,11 @@ public class TargetedRemoval implements EdgeRemovalStrategy {
 
         Map<DefaultEdge, Integer> mapEdgeStrength = new HashMap<DefaultEdge, Integer>();
         
-        // Construct the mapping of edge - strength, with the strength
-        // being the number of common neighbors between the vertices of the edge.
+        /* Construct the mapping of edge - strength, with the strength
+        being the number of common neighbors between the vertices of the edge.
+        Computes this mapping only once, and suppose it stays relevant even when
+        edges are removed, for the sake of simplicity.
+        */
         for (DefaultEdge edge: graph.edgeSet()) {
 			String sourceVertex = graph.getEdgeSource(edge);
 			String targetVertex = graph.getEdgeTarget(edge);
