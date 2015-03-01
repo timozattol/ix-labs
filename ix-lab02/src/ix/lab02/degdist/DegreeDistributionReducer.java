@@ -18,7 +18,6 @@ import org.apache.hadoop.mapreduce.Reducer;
  * Output:
  * 8	7
  */
-@SuppressWarnings("unused")
 public class DegreeDistributionReducer extends Reducer<IntWritable, IntWritable,  IntWritable, IntWritable> {
 
     private IntWritable outputValue = new IntWritable(); // total number of articles with this degree
@@ -31,8 +30,16 @@ public class DegreeDistributionReducer extends Reducer<IntWritable, IntWritable,
      */
     public void reduce(IntWritable inputKey, Iterable<IntWritable> inputValues, Context context)
             throws IOException, InterruptedException {
+    	
+    	int outDegree = 0;
 
-        // TODO Write the reducer.
+        for (IntWritable intWritable : inputValues) {
+			outDegree += intWritable.get();
+		}
+        
+        outputValue.set(outDegree);
+        
+        context.write(inputKey, outputValue);
 
     }
 

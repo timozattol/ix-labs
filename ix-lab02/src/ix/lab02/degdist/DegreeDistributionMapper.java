@@ -20,7 +20,6 @@ import org.apache.hadoop.mapreduce.Mapper;
  * 4	1
  *
  */
-@SuppressWarnings("unused")
 public class DegreeDistributionMapper extends Mapper<Text, Text, IntWritable, IntWritable> {
 
     private IntWritable outputKey = new IntWritable();  // Degree of the article / node.
@@ -38,8 +37,9 @@ public class DegreeDistributionMapper extends Mapper<Text, Text, IntWritable, In
     public void map(Text inputKey, Text inputValues, Context context)
             throws IOException, InterruptedException {
 
-        // TODO Write the mapper.
-
+        outputKey.set(inputValues.toString().split(", ").length);
+        
+        context.write(outputKey, ONE);
     }
 
 }
