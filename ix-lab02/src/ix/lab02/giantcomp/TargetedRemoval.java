@@ -36,7 +36,7 @@ public class TargetedRemoval implements EdgeRemovalStrategy {
         
         /* Construct the mapping of edge - strength, with the strength
         being the number of common neighbors between the vertices of the edge.
-        Computes this mapping only once, and suppose it stays relevant even when
+        Compute this mapping only once, and suppose it stays relevant even when
         edges are removed, for the sake of simplicity.
         */
         for (DefaultEdge edge: graph.edgeSet()) {
@@ -46,7 +46,7 @@ public class TargetedRemoval implements EdgeRemovalStrategy {
 							cachedGraph, sourceVertex, targetVertex));
 		}
         
-        // Order regarding strength
+        // Order incrementally regarding strength
         List<DefaultEdge> orderedEdges = TargetedRemoval.orderedEdges(mapEdgeStrength);
         
         // Compute giant component initial size
