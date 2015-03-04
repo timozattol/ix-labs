@@ -4,7 +4,12 @@ import ix.utils.TextArrayWritable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,9 +44,31 @@ public class CoActorGraphMapper extends Mapper<Text, // input key: movie title
         }
 
         int movieYear = Integer.parseInt(m.group(1));
+        if(movieYear > endingYear || movieYear < startingYear){
+        	// outside of year range
+        	return;
+        }
         
-        //TODO Extract all pairs of actors that played in the movie, if the movie was in the years of interest
-        // HINT: Use the method setStringCollection to set the output value.
+        /* split stringlist of actors into set */
+//        Collection<String> movieActors = new HashSet<String>();
+//        StringTokenizer tokenizer = new StringTokenizer(inputValue.toString(), ",");
+//        while(tokenizer.hasMoreTokens()) {
+//        	movieActors.add(tokenizer.nextToken());
+//        }
+        
+        Collection<String> movieActors = Arrays.asList(inputValue.toString().split(","));
+        
+        
+        /* for each actor in movie, write his co-actors to output */
+        for(String actor : movieActors) {
+        	Collection<String> actorsWithoutActor = new ArrayList<String>(movieActors);
+        	actorsWithoutActor.remove(actor);
+        	outputValue.setStringCollection(actorsWithoutActor);
+        	
+        	outputKey.set(actor);
+        	context.write(outputKey, outputValue);
+        }
+        
     }
 
 }
