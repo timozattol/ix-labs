@@ -3,6 +3,7 @@ package ix.lab03.extraction;
 import ix.utils.TextArrayWritable;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -27,7 +28,19 @@ public class CoActorGraphReducer extends Reducer<Text, // input key: actor name
     public void reduce(Text inputKey, Iterable<TextArrayWritable> inputValues, Context context)
             throws IOException, InterruptedException {
 
-        //TODO Assemble all co-actors
+    	Set<String> outputValues = new HashSet<String>();
+    	
+    	for (TextArrayWritable inputValue : inputValues) {
+    		for (String value : inputValue.toStrings()) {
+    			outputValues.add(value);
+    		}
+    	}
+    	
+    	outputValue.setStringCollection(outputValues);
+    	
+    	
+        context.write(inputKey, outputValue);
+        
 
     }
 

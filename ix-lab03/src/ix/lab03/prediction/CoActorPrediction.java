@@ -20,9 +20,7 @@ public class CoActorPrediction {
     public static class PreferentialAttachment implements PredictionStrategy {
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
-            //TODO
-            // Hint: look at the degrees of u and v.
-            throw new RuntimeException("Not yet implemented.");
+            return graph.degreeOf(v);
         }
     }
 
@@ -31,8 +29,9 @@ public class CoActorPrediction {
     public static class CommonNeighbors implements PredictionStrategy {
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
-            //TODO
-            throw new RuntimeException("Not yet implemented.");
+        	//graph.degreeOf(u) -> for each edge get target vertex
+        	//idem for v
+        	//intersection of both sets, count.
         }
     }
 
