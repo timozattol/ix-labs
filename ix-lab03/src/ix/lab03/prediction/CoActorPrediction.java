@@ -1,8 +1,12 @@
 package ix.lab03.prediction;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import ix.utils.GraphUtils;
 import ix.utils.PredictedEdge;
 
+import org.jgrapht.alg.NeighborIndex;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 
@@ -13,6 +17,21 @@ public class CoActorPrediction {
 
     public interface PredictionStrategy {
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v);
+    }
+    
+    /**
+     * Computes the number of common neighbors of source and target vertices using
+     * an auxiliary neighborhood cache structure.
+     *
+     * @param nIndex  neighborhood cache
+     * @param source  source vertex
+     * @param target  target vertex
+     */
+    public static int numCommonNeighbours(NeighborIndex<String, DefaultEdge> nIndex,
+            String source, String target) {
+        Set<String> intersection = new HashSet<String>(nIndex.neighborsOf(source));
+        intersection.retainAll(nIndex.neighborsOf(target));
+        return intersection.size();
     }
 
 
@@ -29,9 +48,9 @@ public class CoActorPrediction {
     public static class CommonNeighbors implements PredictionStrategy {
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
-        	//graph.degreeOf(u) -> for each edge get target vertex
-        	//idem for v
-        	//intersection of both sets, count.
+        	NeighborIndex<String, DefaultEdge> nIndex = new NeighborIndex<String, DefaultEdge>(graph);
+        	
+        	return numCommonNeighbours(nIndex, u, v);
         }
     }
 
