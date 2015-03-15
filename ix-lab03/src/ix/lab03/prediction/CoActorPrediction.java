@@ -1,5 +1,6 @@
 package ix.lab03.prediction;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,8 +60,32 @@ public class CoActorPrediction {
     public static class MyOwnScoring implements PredictionStrategy {
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
-            //TODO
-            throw new RuntimeException("Not yet implemented.");
+        	
+        	// This thing ran for 10 min and wasn't finished...
+        	// #snif
+        	
+        	
+//        	NeighborIndex<String, DefaultEdge> nIndex = new NeighborIndex<String, DefaultEdge>(graph);
+//        	
+//        	Set<String> friendsOfU = new HashSet<String>(nIndex.neighborsOf(u));
+//        	Set<String> friendsOfFriendsOfU = new HashSet<String>();
+//        	
+//        	for (String friend : friendsOfU) {
+//				friendsOfFriendsOfU.addAll(nIndex.neighborsOf(friend));
+//			}
+//        	
+//        	Set<String> friendsOfV = new HashSet<String>(nIndex.neighborsOf(v));
+//        	Set<String> friendsOfFriendsOfV = new HashSet<String>();
+//        	
+//        	for (String friend : friendsOfV) {
+//				friendsOfFriendsOfV.addAll(nIndex.neighborsOf(friend));
+//			}
+//        	
+//        	friendsOfFriendsOfU.retainAll(friendsOfFriendsOfV);
+//        	
+//        	return friendsOfFriendsOfU.size();
+        	
+        	throw new RuntimeException("Not implemented");
         }
     }
 
