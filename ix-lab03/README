@@ -1,0 +1,28 @@
+Since your thesis rotates around random graphs, you decide to apply your amazing algorithm
+on a instance of a random graph G(n, p). You generate a G(n, p), and you remove uniformly at
+random some edges. What would be the performance of your algorithm on predicting these missing
+edges? What is the best strategy for finding these missing links? Justify rigorously your answer
+(and think before coding ^¨ )
+
+
+- Same as random, or worse. It not mathematically possible to predict something totally random. 
+Each edge has the exact same probability of being removed, so it's the same as asking someone to predict the outcome of a fair die.
+
+
+
+1. Setting N = 10 000 and node u as initial seed, what is the average age of a Facebook user?
+
+- By simply computing sumAges / N, we get 46.42
+
+2. A study whose title is “Facebook, by Facebook” is released, and it reveals that the average
+age of Facebook’s users is 52.6 years old. How close is you estimation to the true average
+age? How do you explain it?
+
+- Our estimate is about 10% off. The random walk is unfair, because it traverses more often vertices with high degrees than 
+vertices with low degree. Young people probably have more friends (higher degree) on average 
+than older people, thus bringing down the average age.  
+
+3. What would you change in your crawler in order to have a more accurate estimate of average
+age? You solution should require neither additional seeds nor more memory allocated.
+
+- We take the degree of each node into account, thus compensating for the popularity bias.
