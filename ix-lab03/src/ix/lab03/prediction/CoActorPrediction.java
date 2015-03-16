@@ -1,6 +1,5 @@
 package ix.lab03.prediction;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +34,6 @@ public class CoActorPrediction {
         return intersection.size();
     }
 
-
     /** Quantity reflecting the preferential attachment principle. */
     public static class PreferentialAttachment implements PredictionStrategy {
         @Override
@@ -59,33 +57,50 @@ public class CoActorPrediction {
     /** Your own scoring function. */
     public static class MyOwnScoring implements PredictionStrategy {
         @Override
-        public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
+        public double score(SimpleGraph<String, DefaultEdge> graph, String source, String target) {
         	
-        	// This thing ran for 10 min and wasn't finished...
-        	// #snif
+        	int nNeighbours = 0;
+        	int nNeighboursOfNeigbours = 0;
+        	
+        	Set<String> targetNeighbours = new HashSet<String>();
+
+        	for (DefaultEdge u : graph.edgesOf(target)) {
+        		String friend = graph.getEdgeTarget(u);
+        		
+        		if (friend.equals(target)) {
+        			friend = graph.getEdgeSource(u);
+        		}
+        		
+        		targetNeighbours.add(friend);
+        	}
+        	
+        	for (DefaultEdge u : graph.edgesOf(source)) {
+        		String friend = graph.getEdgeTarget(u);
+        		
+        		if (friend.equals(source)) {
+        			friend = graph.getEdgeSource(u);
+        		}
+        		
+        		if (targetNeighbours.contains(friend)) {
+        			nNeighbours += 1;
+        		}
+        		
+        		for (DefaultEdge v : graph.edgesOf(friend)) {
+        			String friendOfFriend = graph.getEdgeTarget(v);
+
+        			if (friendOfFriend.equals(friend)) {
+        				friendOfFriend = graph.getEdgeSource(v);
+        			}
+
+        			if (targetNeighbours.contains(friendOfFriend)) {
+        				nNeighboursOfNeigbours += 1;
+        			}
+        		}
+        	}
         	
         	
-//        	NeighborIndex<String, DefaultEdge> nIndex = new NeighborIndex<String, DefaultEdge>(graph);
-//        	
-//        	Set<String> friendsOfU = new HashSet<String>(nIndex.neighborsOf(u));
-//        	Set<String> friendsOfFriendsOfU = new HashSet<String>();
-//        	
-//        	for (String friend : friendsOfU) {
-//				friendsOfFriendsOfU.addAll(nIndex.neighborsOf(friend));
-//			}
-//        	
-//        	Set<String> friendsOfV = new HashSet<String>(nIndex.neighborsOf(v));
-//        	Set<String> friendsOfFriendsOfV = new HashSet<String>();
-//        	
-//        	for (String friend : friendsOfV) {
-//				friendsOfFriendsOfV.addAll(nIndex.neighborsOf(friend));
-//			}
-//        	
-//        	friendsOfFriendsOfU.retainAll(friendsOfFriendsOfV);
-//        	
-//        	return friendsOfFriendsOfU.size();
         	
-        	throw new RuntimeException("Not implemented");
+    		return 2 * nNeighbours + nNeighboursOfNeigbours;
         }
     }
 
