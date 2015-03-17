@@ -36,6 +36,7 @@ public class CoActorPrediction {
 
     /** Quantity reflecting the preferential attachment principle. */
     public static class PreferentialAttachment implements PredictionStrategy {
+    	// RESULT: 1.646% and 2.51x
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
             return graph.degreeOf(v);
@@ -45,6 +46,7 @@ public class CoActorPrediction {
 
     /** The number of common neighbors between u and v. */
     public static class CommonNeighbors implements PredictionStrategy {
+    	// RESULT: 5.114% and 7.79x
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String u, String v) {
         	NeighborIndex<String, DefaultEdge> nIndex = new NeighborIndex<String, DefaultEdge>(graph);
@@ -56,6 +58,7 @@ public class CoActorPrediction {
 
     /** Your own scoring function. */
     public static class MyOwnScoring implements PredictionStrategy {
+    	//RESULT: 5.227% accuracy, 7.97x improvement.
         @Override
         public double score(SimpleGraph<String, DefaultEdge> graph, String source, String target) {
         	
@@ -97,8 +100,6 @@ public class CoActorPrediction {
         			}
         		}
         	}
-        	
-        	
         	
     		return 2 * nNeighbours + nNeighboursOfNeigbours;
         }
