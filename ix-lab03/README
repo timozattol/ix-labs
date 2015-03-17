@@ -8,7 +8,7 @@ edges? What is the best strategy for finding these missing links? Justify rigoro
 - Same as random, or worse. It not mathematically possible to predict something totally random. 
 Each edge has the exact same probability of being removed, so it's the same as asking someone to predict the outcome of a fair die.
 
-
+=Facebook social network=
 
 1. Setting N = 10 000 and node u as initial seed, what is the average age of a Facebook user?
 
@@ -26,3 +26,34 @@ than older people, thus bringing down the average age.
 age? You solution should require neither additional seeds nor more memory allocated.
 
 - We take the degree of each node into account, thus compensating for the popularity bias.
+
+=Bizarre social networks=
+
+1. Setting N = 10 000, what is the average age of Ages’s users when you start your crawl from
+node u? from node v? from node w? Can you explain which properties of the network could
+cause this?
+
+-u : 63.64 
+-v : 82.58
+-w : 60.77
+
+- There is probably a component that is very weakly connected to other components, 
+and v is in this "lonely component".
+
+2. What would you change in your crawler in order to have a more accurate estimate of average
+age? Hint: Starting your crawler from node u, increase N and observe the impact on the age
+estimate.
+
+- (We think the question has a typo and speaks about node v, not u)
+- We increased N to 10x the old value and now the average went down to 70.42, meaning that after a great number of iterations, the random walk was able to get out of the lonely component.
+
+Finally, you want to crawl yet another social network called Directions (whose average user
+is, we heard, 32.5 years old.) Complete the code in DirectionsSampling. What estimate of the
+average age of Directions’s users do you get when you start your crawl from node u? From
+node v? From node w? Explain what you obtain.
+
+-u : 49.47
+-v : 49.48
+-w : 49.51
+
+- Unfortunately, it's worse than with AgeSampling because here it looks like u, v and w are all three in the same "lonely" component.

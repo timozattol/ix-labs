@@ -1,9 +1,18 @@
 package ix.lab03.sampling;
 
-import ix.utils.SocialAPI;
+import java.util.List;
+import java.util.Random;
 
-@SuppressWarnings("unused")
+import ix.utils.SocialAPI;
+import ix.utils.SocialNode;
+
 public class DirectionsSampling {
+	
+	/* 
+	 * U: 49.466
+	 * V: 49.4775
+	 * W: 49.5119
+	 */
 
     public static int N = 10000;
     public static int GRAPH = SocialAPI.DIRECTIONS;
@@ -11,8 +20,33 @@ public class DirectionsSampling {
     public static void main(String[] args) {
         SocialAPI api = new SocialAPI();
 
-        // TODO Complete.
-        // Hint: you might find java.util.Random useful.
+        int i = 0;
+        double ageSum = 0;
+        double inverseDegreeSum = 0;
+        SocialNode currentNode = api.getNode(GRAPH, SocialAPI.SEED_W);
+        List<String> currentNeighbors;
+        Random r = new Random();
+
+
+        while (i < N) {
+
+        	currentNeighbors = currentNode.neighbors;
+        	double numNeighbours = currentNeighbors.size();
+
+        	ageSum += currentNode.age / numNeighbours;
+
+        	inverseDegreeSum += 1 / numNeighbours;
+
+        	currentNode = api.getNode(GRAPH, currentNeighbors.get(r.nextInt((int)numNeighbours)));
+
+        	if(i % 200 == 0) {
+        		System.out.println(ageSum / inverseDegreeSum);
+        	}
+
+        	++i;
+        }
+
+        System.out.println(ageSum / inverseDegreeSum);
     }
 
 }
