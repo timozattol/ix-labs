@@ -12,11 +12,8 @@ public class AgesSampling {
     public static int N = 10000;
     public static int GRAPH = SocialAPI.AGES;
 
-    public static void main(String[] args) {
-    	System.out.println("i said wutwut");
-    	
+    public static void main(String[] args) {    	
     	SocialAPI api = new SocialAPI();
-
     	
         int i = 0;
         double ageSum = 0;
@@ -37,9 +34,9 @@ public class AgesSampling {
 
         	currentNode = api.getNode(GRAPH, currentNeighbors.get(r.nextInt((int)numNeighbours)));
 
-        	//if(i % 200 == 0) {
+        	if(i % 200 == 0) {
         		System.out.println(ageSum / inverseDegreeSum);
-        //	}
+        	}
 
         	++i;
         }
