@@ -6,7 +6,6 @@ import java.util.Random;
 import ix.utils.SocialAPI;
 import ix.utils.SocialNode;
 
-@SuppressWarnings("unused")
 public class AgesSampling {
 
     public static int N = 10000;
@@ -19,6 +18,9 @@ public class AgesSampling {
         double ageSum = 0;
         double inverseDegreeSum = 0;
         SocialNode currentNode = api.getNode(GRAPH, SocialAPI.SEED_U);
+        //Seed U: 63.644 10x more iterations: 63.75
+        //Seed V: 82.581 10x more iterations: 70.42
+        //Seed W: 60.773
         List<String> currentNeighbors;
         Random r = new Random();
 
