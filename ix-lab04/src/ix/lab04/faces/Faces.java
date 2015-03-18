@@ -8,20 +8,30 @@ import utils.NotYetImplementedException;
 public class Faces {
 
     /**
-     * Computes the variance of the dataset along each dimension (i.e. each  column).
+     * Computes the variance of the dataset along each dimension (i.e. each column).
      * @return an array of doubles containing the variance for each column
      */
     public static double[] variance(Matrix data) {
-        int M = data.getColumnDimension();
+        int N = data.getRowDimension();
+    	int M = data.getColumnDimension();
         double[] variances = new double[M];
-
-        // TODO Complete the function.
-        throw new NotYetImplementedException();  // Remove.
 
         // Don't forget to center the data!
         // Hint: util.Common provides a few handy functions.
+        
+        double[] expectations = Common.getColMean(data);
+        
+        for (int i = 0; i < M; i++) {
+        	double varianceSum = 0;
+        	
+        	for (int j = 0; j < N; j++) {
+        		varianceSum += Math.pow(data.get(j, i) - expectations[i], 2);
+    		}
+        	
+        	variances[i] = varianceSum / N;
+		}
 
-        //return variances;
+        return variances;
     }
 
 
