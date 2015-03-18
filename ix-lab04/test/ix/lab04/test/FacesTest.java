@@ -1,9 +1,9 @@
-package ix.lab05;
+package ix.lab04.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import ix.lab05.faces.Faces;
-import ix.lab05.faces.PCAResult;
+import ix.lab04.faces.Faces;
+import ix.lab04.faces.PCAResult;
 
 import java.util.Random;
 

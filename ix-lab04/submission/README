@@ -1,0 +1,12 @@
+1. How many faces are there in the dataset, and how many measurements are provided for each
+face? That is, what are the values of N and M? In Faces.java, complete the top of the
+function main(). Hint: although we provide the images behind the first 1000 faces only,
+there are many more in the dataset.
+
+
+- 
+
+
+2. What is the variance3 of the data along each dimension? Complete the function variance(),
+run Faces and enter variance when prompted for an action. Take advantage of the unit
+tests in FacesTest to check your implementation.

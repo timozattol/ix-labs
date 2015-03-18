@@ -1,4 +1,4 @@
-package ix.lab05.smartvote;
+package ix.lab04.smartvote;
 
 import java.util.List;
 

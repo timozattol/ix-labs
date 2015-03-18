@@ -1,4 +1,4 @@
-package ix.lab05.faces;
+package ix.lab04.faces;
 
 import utils.Common;
 import utils.EigenDecomposition;
