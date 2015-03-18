@@ -5,7 +5,6 @@ import utils.EigenDecomposition;
 import utils.FacesUtils;
 import utils.NotYetImplementedException;
 import Jama.Matrix;
-
 @SuppressWarnings("unused")
 public class Faces {
 
@@ -66,10 +65,11 @@ public class Faces {
     /** Use this function to run the various parts. */
     public static void main(String[] args) {
         Matrix data = FacesUtils.readFacesData();
+        
         System.out.println(String.format(
                 "Dataset has %d rows (items, faces) and %d columns (measurements per item).",
-                null,  // TODO number of rows.
-                null   // TODO number of columns.
+                data.getRowDimension(),
+                data.getColumnDimension()
                 ));
 
         // Prompt the user for an action.
