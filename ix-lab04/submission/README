@@ -1,12 +1,36 @@
+== 1.1 ==
+
 1. How many faces are there in the dataset, and how many measurements are provided for each
 face? That is, what are the values of N and M? In Faces.java, complete the top of the
 function main(). Hint: although we provide the images behind the first 1000 faces only,
 there are many more in the dataset.
 
 
-- 
+- 5000 faces and 50 measurement 
 
 
 2. What is the variance3 of the data along each dimension? Complete the function variance(),
 run Faces and enter variance when prompted for an action. Take advantage of the unit
 tests in FacesTest to check your implementation.
+
+- Check the plot
+
+
+3. Simply by looking at the images, can you identify the different sources of variability between
+the faces? Phrased differently: how many numbers would you need to precisely describe the
+variable part of a face?
+
+- 7 sources: face, hair, eyes and hat color; eyes, hair size; mouth shape.
+
+
+4. How does this compare to the dimension of the measurement vector outputted by FaceAnalyzr
+for each face?
+
+- 50 is a lot more than 7, a lot of values are probably irrelevant.
+
+
+5. By looking at the images and their corresponding row in the dataset (e.g. face0000.png
+corresponds to the 1st line in data/faces.txt), are you able to identify any correlation
+between facial features and vector values?
+
+- We really tried, but no... It's too difficult to do it "by hand"
