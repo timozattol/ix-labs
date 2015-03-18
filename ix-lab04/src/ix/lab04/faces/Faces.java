@@ -1,11 +1,10 @@
 package ix.lab04.faces;
 
+import Jama.Matrix;
 import utils.Common;
-import utils.EigenDecomposition;
 import utils.FacesUtils;
 import utils.NotYetImplementedException;
-import Jama.Matrix;
-@SuppressWarnings("unused")
+
 public class Faces {
 
     /**
