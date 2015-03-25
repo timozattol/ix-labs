@@ -34,3 +34,43 @@ corresponds to the 1st line in data/faces.txt), are you able to identify any cor
 between facial features and vector values?
 
 - We really tried, but no... It's too difficult to do it "by hand"
+
+7. Run Face with the action pca, and look at the plot of the variances. How many components
+stand out? How does this relate to your intuition about the variability of the faces?
+
+- 6 components stand out, which is one less than what we found. We can suppose two things: 
+either the FaceAnalyzer algorithm does not detect one of the 7 variables, or there is an
+underlying correlation between empirically observed variables, and there actually are only
+6 degrees of freedom.
+
+
+9. Using the action extremes you can see which of the 1000 first faces have extremal values
+along any dimension4
+in the new space. By visually comparing faces with low values to faces
+with high values for the first few dimensions, map each principal component to a variable
+facial feature.
+
+- 1: mouth shape (smallest = smile, largest = sad)
+- 2: eye size (smallest = big eyes, largest = small eyes)
+- 3: eye color (smallest = dark eyes, largest = turquoise eyes)
+- 4: hair size (smallest = short, largest = long)
+- 5: hair color (smallest = blond, largest = brown)
+- 6: face color (smallest = dark, largest = light)
+
+- 7: as expected, no visible correlation
+
+10. There is no image attached to the item at row 3797 of the dataset. Can you give a description
+of the main facial features? You should be able to do it with the machinery implemented so
+far.
+
+- We computed the 6 first dimensions for row 3797:
+
+Dimension 1: -80.07
+Dimension 2: -18.02
+Dimension 3: 9.86
+Dimension 4: -4.71
+Dimension 5: -3.91
+Dimension 6: -0.86
+
+The face probably has a smiling face, big turquoise eyes, short blond hair and relatively dark face color
+

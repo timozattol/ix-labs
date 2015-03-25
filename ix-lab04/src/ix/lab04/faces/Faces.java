@@ -1,7 +1,11 @@
 package ix.lab04.faces;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import Jama.Matrix;
 import utils.Common;
+import utils.EigenDecomposition;
 import utils.FacesUtils;
 import utils.NotYetImplementedException;
 
@@ -41,17 +45,18 @@ public class Faces {
      * @return a container with with the result of the PCA
      */
     public static PCAResult pca(Matrix data) {
-        PCAResult result = null;
-
-        // TODO Complete the function.
-        throw new NotYetImplementedException();  // Remove.
-
-        // Note: the class Jama.Matrix defines several handy methods. Using them,
+    	// Note: the class Jama.Matrix defines several handy methods. Using them,
         // you should only need a couple of lines to complete this function.
         //
         // You also might find utils.EigenDecomposition useful.
 
-        //return result;
+        Matrix centered = Common.center(data);
+        
+        Matrix cov = (centered.transpose().times(centered)).times((1 / (double) data.getRowDimension()));
+        
+        EigenDecomposition eig = new EigenDecomposition(cov);
+        
+        return new PCAResult(eig.eigenvectors, eig.eigenvalues);
     }
 
 
@@ -62,12 +67,12 @@ public class Faces {
     public static Matrix project(Matrix data) {
         PCAResult result = pca(data);
         Matrix projected = null;
+        
+        Matrix centered = Common.center(data);
 
-        // TODO Complete the function.
-        // Warning: don't forget to center the data before projecting it!
-        throw new NotYetImplementedException();  // Remove.
+        projected = centered.times(result.rotation);
 
-        //return projected;
+        return projected;
     }
 
 
@@ -82,7 +87,7 @@ public class Faces {
                 ));
 
         // Prompt the user for an action.
-        String action = Common.getString("action [variance/pca/project/extremes]: ");
+        String action = Common.getString("action [variance/pca/project/extremes/face_values]: ");
 
         if ("variance".equals(action)) {
             // Plot the variance of each dimension of the dataset.
@@ -106,6 +111,15 @@ public class Faces {
             Matrix projected = project(data);
             int dim = Common.getInt("dimension: ");
             FacesUtils.printExtremes(projected, dim, 10);
+        } else if ("face_values".equals(action)) {
+        	int row = Common.getInt("row: ");
+        	
+        	NumberFormat formatter = new DecimalFormat("#0.00");     
+        	
+        	Matrix projected = project(data);
+        	for (int i = 0; i < 6; i++) {
+				System.out.println("Dimension " + (i + 1) + ": " + formatter.format(projected.get(row, i)));
+			}
         }
     }
 }
