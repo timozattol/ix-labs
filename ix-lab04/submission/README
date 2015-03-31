@@ -1,4 +1,4 @@
-== 1.1 ==
+== 1 ==
 
 1. How many faces are there in the dataset, and how many measurements are provided for each
 face? That is, what are the values of N and M? In Faces.java, complete the top of the
@@ -72,5 +72,52 @@ Dimension 4: -4.71
 Dimension 5: -3.91
 Dimension 6: -0.86
 
-The face probably has a smiling face, big turquoise eyes, short blond hair and relatively dark face color
+- The face probably has a smiling face, big turquoise eyes, short blond hair and relatively dark face color
+
+== 2 ==
+
+5. On the plot that you obtain, each color represents a different political party. How do you
+intepret this plot? What interpretation do you give to the first two principal directions?
+
+- Direction x: negative = left wing, positive = right wing
+- Direction y: negative = liberal, positive = conservative
+
+6.Plot the coordinates along the third principal direction (against either the first or second.)
+Are you able to give a meaningful interpretation to the third direction as well?
+
+- Not really, it does not seem like there is a big correlation between party and 3rd dimension.
+
+7. Inside of the function questions, compute once more the PCA of the answers matrix.
+Extract the first three principal components, and for each of them, print out the text of the
+three most relevant questions. How do you find them? What is your operational definition of
+most relevant question for a given principal component?
+
+- We find the three questions (dimensions) that have the biggest absolute values in the rotation 
+matrix along row of corresponding principal component (row 0, 1 and 2 for component 1, 2 and 3).
+
+
+Results:
+
+Dimension 1's "best" questions:
+Would you support foreigners who have lived for at least ten years in Switzerland being given voting and electoral rights at municipal level throughout Switzerland?
+Would you essentially welcome greater restriction on the tax competition that applies between the cantons?
+A recently launched popular initiative is proposing to limit the maximum salary that can be earned in a company to 12 times the lowest salary (the "1:12" initiative). Do you support this idea?
+
+Dimension 2's "best" questions:
+Today, the Swiss Army can take part in UN or OSCE peace-keeping missions abroad, armed for self-defence purposes. Do you approve?
+Should Switzerland conclude an agricultural free trade agreement with the EU?
+Do you support the existing agreement with the EU on the free movement of peoples?
+
+Dimension 3's "best" questions:
+Would you support the right of doctors in Switzerland to help someone die with impunity?
+Should same-sex couples who have registered their partnership be able to adopt children?
+Switzerland has relatively strict rules when it comes to medically assisted reproduction. Should these be relaxed?
+
+8. Interpret the questions for each principal component. How do they relate to your previous
+interpretation of the candidates’ plot?
+
+- Component 1 & 2 seem to relate well, even though we are not really aware of the politics in general.
+- Component 3 seem to, however, have a meaning. It looks like questions are about medical ethics.
+
+
 
