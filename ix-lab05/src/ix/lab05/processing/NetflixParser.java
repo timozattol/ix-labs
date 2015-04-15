@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Iterator;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
@@ -27,7 +28,6 @@ import com.google.common.base.Charsets;
  *
  * userID<TAB>movieID<TAB>rating<NEWLINE>
  */
-@SuppressWarnings("unused")
 public final class NetflixParser {
 
     private static final String TAB = "\t";
@@ -47,7 +47,21 @@ public final class NetflixParser {
         String userID = null;
         String rating = null;
 
-        //TODO: extract the information from lines and write them to writer in the correct format
+        Iterator<String> linesIt = lines.iterator();
+
+        movieID = linesIt.next().replace(":", "");
+
+        String line;
+        String[] array;
+
+        while(linesIt.hasNext()) {
+        	line = linesIt.next();
+        	array = line.split(",");
+        	userID = array[0];
+        	rating = array[1];
+
+        	writer.write(userID + TAB + movieID + TAB + rating + NEWLINE);
+        }
     }
 
 
