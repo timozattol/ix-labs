@@ -9,7 +9,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-@SuppressWarnings("unused")
 public class NetflixMatrixMapper extends
         Mapper<LongWritable, Text, IntWritable, Text> {
 
@@ -26,7 +25,11 @@ public class NetflixMatrixMapper extends
 
         String[] tokens = inputValue.toString().split(TAB);
 
-        // TODO
+        outputKey.set(Integer.parseInt(tokens[0]));
+        
+        outputValue.set(tokens[1] + TAB + tokens[2]);
+        
+        context.write(outputKey, outputValue);
     }
 
 }
