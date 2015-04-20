@@ -12,7 +12,6 @@ import org.apache.mahout.math.Vector;
 import org.apache.mahout.math.VectorWritable;
 
 /** Collects all the ratings for a user and stores them in a sparse vector. */
-@SuppressWarnings("unused")
 public class NetflixMatrixReducer extends
         Reducer<IntWritable, Text, IntWritable, VectorWritable> {
 
@@ -24,8 +23,18 @@ public class NetflixMatrixReducer extends
 
         // do not worry about the strange type, use it as a regular Vector
         Vector ratings = new SequentialAccessSparseVector(Integer.MAX_VALUE, 1);
+        
+        int i = 0;
+        String[] values = new String[2];
+        
+        for (Text text : inputValues) {
+        	values = text.toString().split(TAB);
+			ratings.set(
+					Integer.parseInt(values[0]), 
+					Double.parseDouble(values[1]));
 
-        // TODO
+			++i;
+		}
 
         this.outputValue.set(ratings);
         context.write(inputKey, this.outputValue);
