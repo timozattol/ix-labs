@@ -78,11 +78,13 @@ public class RecommenderReducer extends
         }
 
         // divide all recommendations by the sum of similarities
-        double sum = 0;
-        for (int i = 0; i < normalization.size(); i++) {
-			sum += normalization.get(i);
+        for (Element e : normalization.nonZeroes()) {
+        	int movieID = e.index();
+			double sim =  e.get();
+			
+			double current = recommendations.getElement(movieID).get();
+			recommendations.set(movieID, current / sim);
 		}
-        recommendations.divide(sum);
 
         this.outputValue.set(recommendations);
         context.write(nullKey, this.outputValue);
