@@ -28,7 +28,6 @@ import ix.utils.VectorUtils;
  * Note that we do not have an output key, because all outputs need to be
  * processed by the same reducer, and thus use a NullWritable.
  */
-@SuppressWarnings("unused")
 public class RecommenderMapper extends
         Mapper<IntWritable, VectorWritable, NullWritable, UserContribution> {
 
@@ -70,7 +69,9 @@ public class RecommenderMapper extends
             return;
         }
 
-        //TODO
+        double similarity = VectorUtils.cosineSimilarity(myRatings, otherRatings.get());
+        
+        outputValue.set(similarity, otherRatings.get());
 
         context.write(this.nullKey, this.outputValue);
     }
