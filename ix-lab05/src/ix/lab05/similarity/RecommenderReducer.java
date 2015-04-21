@@ -29,7 +29,6 @@ import ix.utils.UserContribution;
  * {movie1: 4.33333, movie2: 2.3333333}
  *
  */
-@SuppressWarnings("unused")
 public class RecommenderReducer extends
         Reducer<NullWritable, UserContribution, NullWritable, VectorWritable> {
 
@@ -73,12 +72,17 @@ public class RecommenderReducer extends
                 int movieID = el.index();
                 double rating = el.get();
 
-                //TODO
+                recommendations.incrementQuick(movieID, rating * similarity);
+                normalization.incrementQuick(movieID, similarity);
             }
         }
 
         // divide all recommendations by the sum of similarities
-        //TODO
+        double sum = 0;
+        for (int i = 0; i < normalization.size(); i++) {
+			sum += normalization.get(i);
+		}
+        recommendations.divide(sum);
 
         this.outputValue.set(recommendations);
         context.write(nullKey, this.outputValue);
