@@ -23,8 +23,7 @@ public class NetflixMatrixReducer extends
 
         // do not worry about the strange type, use it as a regular Vector
         Vector ratings = new SequentialAccessSparseVector(Integer.MAX_VALUE, 1);
-        
-        int i = 0;
+
         String[] values = new String[2];
         
         for (Text text : inputValues) {
@@ -32,8 +31,6 @@ public class NetflixMatrixReducer extends
 			ratings.set(
 					Integer.parseInt(values[0]), 
 					Double.parseDouble(values[1]));
-
-			++i;
 		}
 
         this.outputValue.set(ratings);
