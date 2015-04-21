@@ -25,9 +25,18 @@ public final class RMSE {
      * @return
      */
     public static double evaluate(Map<Integer, Double> groundTruth, Map<Integer, Double> recommendations) {
-        //TODO
-        
-        return 0.0;
+    	double N = groundTruth.size();
+    	double ratingDiffSum = 0.0;
+    	
+    	for ( Integer movieID : groundTruth.keySet()) {
+    		double difference = groundTruth.get(movieID) - recommendations.get(movieID);
+    		
+    		double diffSquared = difference * difference;
+    		
+    		ratingDiffSum += diffSquared;
+    	}
+    	
+    	return Math.sqrt(ratingDiffSum / N);
     }
     
     /**
