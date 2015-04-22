@@ -6,11 +6,12 @@ import ix.lab06.utils.Point2d;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Kmeans {
+public class Kmeans {	
     /** Number of clusters */
     protected int k;
 
@@ -22,6 +23,15 @@ public class Kmeans {
 
     /** Assignment of points to clusters */
     protected int[] assignments;
+    
+    
+    private List<Color> sampleColors = Arrays.asList(
+    		new Color(255, 0, 0), 
+    		new Color(0, 255, 0), 
+    		new Color(0, 0, 255),
+    		new Color(255, 255, 0), 
+    		new Color(0, 255, 255), 
+    		new Color(255, 0, 255));
 
     public Kmeans(int k) {
         if (k < 2) {
@@ -161,7 +171,7 @@ public class Kmeans {
         List<Color> colors = new ArrayList<Color>();
                 
         for (int c = 0; c < this.k; ++c) {
-            Color col = new Color(rnd.nextFloat(), rnd.nextFloat(), rnd.nextFloat());
+            Color col = sampleColors.get(Math.min(c, sampleColors.size()));
             
             List<Point2d> clusterPoints = new ArrayList<Point2d>();
             for (int p = 0; p < this.data.length; ++p) {
