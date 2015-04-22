@@ -85,7 +85,31 @@ public class Kmeans {
      */
     public void mStep() {
         // According to the assignment, we update the center of each cluster
-        //TODO
+    	Point2d[] sumPoints = new Point2d[centers.length];
+    	int[] nPoints = new int[centers.length];
+    	
+    	for (int i = 0; i < sumPoints.length; i++) {
+			sumPoints[i] = new Point2d(0, 0);
+		}
+
+        for (int i = 0; i < data.length; i++) {
+			int k = assignments[i];
+			Point2d currentSum = sumPoints[k];
+			Point2d currentData = data[i];
+			currentSum.set(
+					currentSum.getX() + currentData.getX(),
+					currentSum.getY() + currentData.getY());
+			++nPoints[k];
+		}
+        
+        // Divide each sum by the number of points
+        for (int i = 0; i < sumPoints.length; i++) {
+			sumPoints[i].set(
+					sumPoints[i].getX() / nPoints[i], 
+					sumPoints[i].getY() / nPoints[i]);
+		}
+        
+        centers = sumPoints;
     }
 
     /**
