@@ -148,10 +148,20 @@ public class Kmeans {
      *            Number of iterations to run.
      */
     public void run(int nbIterations) {
+    	double epsilon = 0.01;
+    	double prevDistortion = Double.MAX_VALUE;
+
         for (int i = 0; i < nbIterations; i++) {
             this.eStep();
             this.mStep();
-            System.out.format("Distortion: %f%n", this.distortionMeasure());
+            double distortion = distortionMeasure();
+            System.out.format("Distortion: %f%n", distortion);
+            
+            if (prevDistortion - distortion < distortion * epsilon) {
+				break;
+			}
+            
+            prevDistortion = distortion;
         }
     }
 
