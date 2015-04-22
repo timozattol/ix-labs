@@ -10,6 +10,7 @@ import org.apache.mahout.common.Pair;
 import org.apache.mahout.math.Vector;
 
 import ix.utils.LabUtils;
+import ix.utils.VectorUtils;
 
 /**
  * Implementation of a recommender system based on the output of a UV
@@ -98,8 +99,7 @@ public class UVRecommender {
      * @return the predicted rating
      */
     private double predictRating(Vector userFeats, Vector itemFeatures) {
-    	//TODO
-        return 0.0;
+    	return userFeats.dot(itemFeatures);
     }
     
 

@@ -1,7 +1,6 @@
 package ix.lab05.similarity;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
