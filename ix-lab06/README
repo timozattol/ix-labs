@@ -1,0 +1,12 @@
+1.2
+Run k-means on the synthetic dataset with k = 2 clusters. How does the distortion (fit of
+data to the clusters) measure evolve? Analyze the clusters and assignments found.
+
+=> The distortion converges to about 5000 after about 6 iterations.
+
+Keeping the same number of clusters k, run your code on the dataset of tweets location.
+Analyze the results you obtain by plotting the evolution of different clusters and their centers.
+After convergence of k-means, how is the geographical distribution of the clusters? What
+does the clustering obtained capture?
+
+=> 
