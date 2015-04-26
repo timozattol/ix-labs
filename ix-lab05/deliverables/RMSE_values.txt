@@ -1,0 +1,8 @@
+=== Similarity-based recommender ===
+RMSE found: 1.411088
+
+=== ALS - WR - 3 features ===
+RMSE found: 1.143222
+
+=== ALS - WR - 25 features ===
+RMSE found: 1.045721 (~9% improvement)

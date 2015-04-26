@@ -1,0 +1,7 @@
+Please find some screenshots of the plot, as well as a script to show the plot since screenshots are not optimal to view 3D graphs.
+
+Usage:
+
+$ ./plot.sh 
+
+It will simply launch the python script with correct inputs
