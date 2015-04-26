@@ -1,0 +1,54 @@
+Run the Recommender job you just implemented to recommend 20 movies to Jack (user ID:
+12345679). What is the number one recommendation?
+=> LOTR: The return of the King: EE
+
+Run the job again to recommend 20 movies to yourself this time (user ID: 12345678). Do
+the recommendations match your tastes?
+=> Not really. The first one matches but many are not my style. It does ressemble Jack's recommendation quite a bit
+
+Run the Recommender job again, this time for user 16355 Then, run
+the class Evaluator.
+It will compute the RMSE between predictions for user 16355 and his true ratings, which
+are found in data/16355-truth.txt.
+=> RMSE found: 1.411088
+
+4:
+What is the meaning of each one of the arguments?
+=> input: the user ratings. output: UV_factorization, tempdir: tempdir, numFeatures: num expected Features (subspace on which correlation can be based),
+numIterations: maximum repeats of step 2&3 in the paper. lambda: factor that penalizes big numbers of parameters, to avoid overfitting.
+
+What is the role of -lambda? Explain why it is necessary, and how to can it be determined.
+Find and comment Fig. 1 in Zhou et al. [2008]. What would happen if lambda was set to 0?
+=> It is the factor that avoids overfitting. Can be determined empirically, by training on a sample set.
+Fig 1 shows the no of iterations against the RMSE, with different values of lambda. We can see here that more iterations is always better,
+however for time reasons you should use a certain cut-off. We can see that for their testing the lambda value 0.065 works better than both lower and higher values.
+If lambda is set to 0, then there will be much overfitting. So the RMSE will be good for the testing set but not for real data.
+
+What is the output of the algorithm? Inspect the output directory. What letter is used to
+denote the matrix of item features, instead of V ?
+=> There is a U matrix and a M matrix and a userRatings matrix. The letter used instead of V is M.
+
+Can you identify some clusters? For each of the dimensions, look at the movies which have
+extremal values—either very low or very high in a particular dimension. How would you
+describe them?
+=> Yes. We can see atleast a horror cluster, fighting and music, amongst possible others. Dim3,low: Decalogue drama film about ten commandments, seems quite alternative. Dim2Low: Dragon Ball, Dim2High: Barchester Chronicles. Dim1Low: Vampire vs Zombies, Dim1High: Schindler's List. We think 3 dimensions is not enough, and therefore distinguishing features have been mixed together so that we cannot see a clear explanation per dimension. But since we can see distinct clusters, it does seem to work.
+
+Run UVRecommender through hadoop. Generate 20 recommendations for Jack and for
+yourself. What do you think of the movies recommended to you?
+=> Jack gets DragonBall, and some DragonBall with some DragonBall aswell. We also get dragonball. This is strange. However the sole film that isn't dragonball I like very much!
+
+Run ix.lab05.factorization.Evaluator for user 16355 through hadoop, using the
+ground truth provided in the file data/16355-truth.txt. What’s the RMSE for that
+user?
+=> RMSE: 1.143222 This is ever better than the one we saw with the similarity evaluator.
+
+Based on this new factorization, generate 20 recommendations for you and for Jack. Do the
+recommendations change?
+=> Jack: lots of fighting and action movies, so it has changed a lot. My recommendations are on point! All my favorite movies are there.
+
+Compute again the RMSE for user 16355. Did it improve? If yes, by how much?
+=> 1.045721. It has thus improved by 0.1, which is approx 9% improvement.
+
+
+
+       
