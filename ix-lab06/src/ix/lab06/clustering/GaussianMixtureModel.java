@@ -84,6 +84,7 @@ public class GaussianMixtureModel {
     public void eStep() {
         //TODO
         // Hint: look at the MultivariateNormalDistribution class used in logLikelihood
+    	
     }
 
     /**
@@ -91,7 +92,20 @@ public class GaussianMixtureModel {
      * based on the responsibilities of each point.
      */
     public void mStep() {
-        //TODO
+    	double[] N = new double[k];
+    	
+        for (int i = 0; i < k; i++) {
+        	for (int j = 0; j < data.length; j++) {
+        		N[i] += gamma[j][i];
+        		mus[i].set(mus[i].getX() + data[j].getX() * gamma[i][j], mus[i].getY() + data[j].getY() * gamma[i][j]);
+        		sigmas[i].set(sigmas[i].getX() + Math.pow(data[j].getX() - mus[i], 2) * gamma[i][j], mus[i].getY() + data[j].getY() * gamma[i][j]);
+        		
+        		
+        	}
+        	pi[i] = N[i] / data.length;
+        	mus[i].set(mus[i].getX() / N[i], mus[i].getY() / N[i]);
+        }
+        
     }
 
     public void run(int iter) {
