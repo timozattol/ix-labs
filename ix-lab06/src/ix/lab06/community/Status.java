@@ -124,8 +124,19 @@ public class Status {
      */
     public double modularity() {
         double modularity = 0;
-        // TODO
         // Hint: make use of communitiesDegrees and communitiesInternalWeights!
+        
+        // compute total weight (m)
+        long totalweight = graph.getTotalWeight();
+
+        // for each community, compute modularity
+        for (int c : communitiesDegrees.keySet()) {
+			modularity += 
+					(communitiesInternalWeights.get(c) / (double) totalweight) 
+					- Math.pow(communitiesDegrees.get(c) / (double) (2 * totalweight), 2);
+		}
+        
+        
         return modularity;
     }
 
