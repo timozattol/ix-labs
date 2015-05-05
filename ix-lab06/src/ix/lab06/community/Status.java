@@ -154,8 +154,21 @@ public class Status {
     public Map<Integer, Long> weightToNeighboringCommunities(String node) {
         Map<Integer, Long> weights = new TreeMap<Integer, Long>();
 
-        // TODO
+        Map<String, Long> neighborsEdges = graph.getEdgesFrom(node);
 
+        for(String neighbor : neighborsEdges.keySet()) {
+        	// get the community to which neighbor belongs
+        	int community = nodesCommunity.get(neighbor);
+        	long weight = neighborsEdges.get(neighbor);
+        	
+        	// increments weight of community if exists, simply put weight if doesn't exist yet
+        	if(weights.containsKey(community)) {
+        		weights.put(community, weights.get(community) + weight);
+        	} else {
+        		weights.put(community, weight);
+        	}
+        }
+        
         return weights;
     }
 
