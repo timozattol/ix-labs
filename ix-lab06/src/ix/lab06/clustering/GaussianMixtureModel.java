@@ -156,7 +156,7 @@ public class GaussianMixtureModel {
     		
     		mus[k_i].set(muX, muY);
     		sigmas[k_i].set(varX, varY, covXY);
-    		pi[k_i] = N[k_i];
+    		pi[k_i] = N[k_i] / data.length;
     	}
     }
 

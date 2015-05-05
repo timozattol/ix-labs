@@ -190,16 +190,14 @@ public class Status {
     	for (int i = 0; i < PASS_MAX; i++) {
     		
     		for(String node : graph.getNodes()) {
-    			double currentModularity = modularity();
         		int currentCommunity = nodesCommunity.get(node);
         		
             	Map<Integer, Long> weightToNeigbors = weightToNeighboringCommunities(node);
             	
             	removeNodeFromCommunity(node, zeroIfNull(weightToNeigbors.get(currentCommunity)));
             	
-            	// Find community that maximizes modularity
+            	// Find community that maximizes delta modularity
             	double maxDeltaModularity = 0;
-            	double maxModularity = currentModularity;
             	int maxNewCommunity = currentCommunity;
             	
             	for (int community : weightToNeigbors.keySet()) {
@@ -210,25 +208,17 @@ public class Status {
     				double deltaModularity = (1.0 / totalWeight) * 
     						(weightToCommunity - 
     								((communitiesDegrees.get(community) + graph.getNodeDegree(node)) / (2 * totalWeight)));
-    				System.out.println(deltaModularity);
-    				
+
     				if(deltaModularity > maxDeltaModularity) {
     					maxDeltaModularity = deltaModularity;
     					maxNewCommunity = community;
     				}
-    	
-//    				double newModularity = modularity();
-//    				
-//    				if(newModularity > maxModularity) {
-//    					maxModularity = newModularity;
-//    					maxNewCommunity = community;
-//    				}
-    				
+
     				removeNodeFromCommunity(node, weightToCommunity);
     			}
-            	
+
             	System.out.println(currentCommunity + " --> " + maxNewCommunity);
-            	
+
             	// Puts node into community that maximizes modularity
             	insertNodeIntoCommunity(node, maxNewCommunity, weightToNeigbors.get(maxNewCommunity));
     		}
