@@ -82,9 +82,31 @@ public class GaussianMixtureModel {
      * point.
      */
     public void eStep() {
-        //TODO
         // Hint: look at the MultivariateNormalDistribution class used in logLikelihood
     	
+    	// initialize the density functions for each component
+        MultivariateNormalDistribution[] pdfs = new MultivariateNormalDistribution[k];
+        for (int k_i = 0; k_i < k; ++k_i) {
+            pdfs[k_i] = new MultivariateNormalDistribution(mus[k_i].toArray(),
+            		sigmas[k_i].toArray());
+        }
+        
+        for (int p = 0; p < data.length; p++) {
+        	// the denominator
+        	double gamma_p = 0;
+
+        	for (int k_i = 0; k_i < k; ++k_i) {
+        		// the numerator
+				gamma[p][k_i] = pi[k_i] * pdfs[k_i].density(data[p].toArray());
+
+				gamma_p += gamma[p][k_i];
+			}
+
+        	for (int k_i = 0; k_i < k; ++k_i) {
+        		// divide by denominator
+				gamma[p][k_i] /= gamma_p;
+			}
+        }
     }
 
     /**
@@ -94,18 +116,48 @@ public class GaussianMixtureModel {
     public void mStep() {
     	double[] N = new double[k];
     	
-        for (int i = 0; i < k; i++) {
-        	for (int j = 0; j < data.length; j++) {
-        		N[i] += gamma[j][i];
-        		mus[i].set(mus[i].getX() + data[j].getX() * gamma[i][j], mus[i].getY() + data[j].getY() * gamma[i][j]);
-        		sigmas[i].set(sigmas[i].getX() + Math.pow(data[j].getX() - mus[i], 2) * gamma[i][j], mus[i].getY() + data[j].getY() * gamma[i][j]);
-        		
-        		
-        	}
-        	pi[i] = N[i] / data.length;
-        	mus[i].set(mus[i].getX() / N[i], mus[i].getY() / N[i]);
-        }
-        
+    	// Compute the Nks
+    	for (int k_i = 0; k_i < k; ++k_i) {
+			N[k_i] = 0;
+			
+			for (int p = 0; p < data.length; ++p) {
+				N[k_i] += gamma[p][k_i];
+			}
+		}
+    	
+    	// For each component, compute mu, sigma and pi
+    	for (int k_i = 0; k_i < k; ++k_i) {
+			
+    		double muX = 0.0;
+    		double muY = 0.0;
+    		
+    		for (int p = 0; p < data.length; ++p) {
+				muX += gamma[p][k_i] * data[p].getX();
+				muY += gamma[p][k_i] * data[p].getY();
+			}
+    		
+    		muX /= N[k_i];
+    		muY /= N[k_i];
+    		
+    		
+    		double varX = 0.0;
+    		double varY = 0.0;
+    		double covXY = 0.0;
+    		
+    		for (int p = 0; p < data.length; ++p) {
+				varX += gamma[p][k_i] * Math.pow(data[p].getX() - muX, 2);
+				varY += gamma[p][k_i] * Math.pow(data[p].getY() - muY, 2);
+				covXY += gamma[p][k_i] * (data[p].getX() - muX) * (data[p].getY() - muY);
+			}
+    		
+    		varX /= N[k_i];
+    		varY /= N[k_i];
+    		covXY /= N[k_i];
+    		
+    		mus[k_i].set(muX, muY);
+    		sigmas[k_i].set(varX, varY, covXY);
+    		pi[k_i] = N[k_i];
+    	}
     }
 
     public void run(int iter) {

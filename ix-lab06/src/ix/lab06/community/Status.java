@@ -2,8 +2,10 @@ package ix.lab06.community;
 
 import ix.lab06.utils.WeightedGraph;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -178,12 +180,71 @@ public class Status {
      * Make sure you do not iterate more than PASS_MAX times over all nodes.
      */
     public void assignCommunities() {
-        // TODO
         // Hint: use weightToNeighboringCommunities(), removeNodeFromCommunity()
         // and insertNodeIntoCommunity()
+    	
+    	System.out.println("BEGIN");
+    	
+    	long totalWeight = graph.getTotalWeight();
+    			
+    	for (int i = 0; i < PASS_MAX; i++) {
+    		
+    		for(String node : graph.getNodes()) {
+    			double currentModularity = modularity();
+        		int currentCommunity = nodesCommunity.get(node);
+        		
+            	Map<Integer, Long> weightToNeigbors = weightToNeighboringCommunities(node);
+            	
+            	removeNodeFromCommunity(node, zeroIfNull(weightToNeigbors.get(currentCommunity)));
+            	
+            	// Find community that maximizes modularity
+            	double maxDeltaModularity = 0;
+            	double maxModularity = currentModularity;
+            	int maxNewCommunity = currentCommunity;
+            	
+            	for (int community : weightToNeigbors.keySet()) {
+            		long weightToCommunity = zeroIfNull(weightToNeigbors.get(community));
+            		
+    				insertNodeIntoCommunity(node, community, weightToCommunity);
+    				
+    				double deltaModularity = (1.0 / totalWeight) * 
+    						(weightToCommunity - 
+    								((communitiesDegrees.get(community) + graph.getNodeDegree(node)) / (2 * totalWeight)));
+    				System.out.println(deltaModularity);
+    				
+    				if(deltaModularity > maxDeltaModularity) {
+    					maxDeltaModularity = deltaModularity;
+    					maxNewCommunity = community;
+    				}
+    	
+//    				double newModularity = modularity();
+//    				
+//    				if(newModularity > maxModularity) {
+//    					maxModularity = newModularity;
+//    					maxNewCommunity = community;
+//    				}
+    				
+    				removeNodeFromCommunity(node, weightToCommunity);
+    			}
+            	
+            	System.out.println(currentCommunity + " --> " + maxNewCommunity);
+            	
+            	// Puts node into community that maximizes modularity
+            	insertNodeIntoCommunity(node, maxNewCommunity, weightToNeigbors.get(maxNewCommunity));
+    		}
+		}
     }
 
-    /**
+    private long zeroIfNull(Long l) {
+    	
+    	if (l == null) {
+			return 0;
+		} else {
+			return l;
+		}
+	}
+
+	/**
      * Removes a node from its community and updates the different community
      * quantities (degree, internal weight).
      * 
