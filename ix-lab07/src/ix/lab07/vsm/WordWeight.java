@@ -3,6 +3,7 @@ package ix.lab07.vsm;
 import ix.utils.TermDocumentPair;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -75,8 +76,22 @@ public class WordWeight {
             // Note: you will need to iterate over inputValues twice. It is your job
             // to cache the values during the first iteration.
 
-            //TODO
-
+        	ArrayList<Text> cache = new ArrayList<Text>();
+        	int docCount = 0;
+        	for (Text value : inputValues) {
+        		cache.add(value);
+        		++docCount;
+        	}
+        	
+        	for (Text value: cache) {
+        		
+        		String[] components = value.toString().split(SEPARATOR);
+        		
+        		outputKey.set(inputKey.toString(), Integer.parseInt(components[0]));
+        		
+        		outputValue.set(TfIdf.termFrequency(Integer.parseInt(components[1]), Integer.parseInt(components[2])) * TfIdf.inverseDocFrequency(docCount));
+        		context.write(outputKey, outputValue);
+        	}
         }
     }
 
