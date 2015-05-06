@@ -61,10 +61,7 @@ public class TfIdf extends Configured implements Tool {
      * @return the TF weight for the term
      */
     public static double termFrequency(int count, int docLength) {
-        // WARNING beware of integer divisions...
-
-        //TODO
-        return 0;
+    	return count / (double) docLength;
     }
 
 
@@ -77,11 +74,9 @@ public class TfIdf extends Configured implements Tool {
      */
     @SuppressWarnings("unused")
     public static double inverseDocFrequency(int docsWithWords) {
-        // WARNING beware of integer divisions...
         int nbDocs = Constants.NB_IMDB_MOVIES;
 
-        //TODO
-        return 0;
+        return Math.log(nbDocs / (double) docsWithWords);
     }
 
 }
