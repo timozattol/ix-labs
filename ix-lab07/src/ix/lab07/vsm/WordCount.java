@@ -72,7 +72,7 @@ public class WordCount {
                 throws IOException, InterruptedException {
         	int size = 0;
         	for (IntWritable value : inputValues) {
-        		++size;
+        		size += value.get();
         	}
         	outputValue.set(size);
         	context.write(inputKey, outputValue);
