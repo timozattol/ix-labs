@@ -4,6 +4,9 @@ import ix.utils.DocumentTokenization;
 import ix.utils.TermDocumentPair;
 
 import java.io.IOException;
+import java.util.Collection;
+
+import javax.xml.transform.OutputKeys;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -67,9 +70,12 @@ public class WordCount {
         @Override
         public void reduce(TermDocumentPair inputKey, Iterable<IntWritable> inputValues, Context context)
                 throws IOException, InterruptedException {
-
-            //TODO
-
+        	int size = 0;
+        	for (IntWritable value : inputValues) {
+        		++size;
+        	}
+        	outputValue.set(size);
+        	context.write(inputKey, outputValue);
         }
     }
 
