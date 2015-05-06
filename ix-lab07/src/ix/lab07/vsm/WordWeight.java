@@ -4,6 +4,8 @@ import ix.utils.TermDocumentPair;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -76,16 +78,15 @@ public class WordWeight {
             // Note: you will need to iterate over inputValues twice. It is your job
             // to cache the values during the first iteration.
 
-        	ArrayList<Text> cache = new ArrayList<Text>();
+        	List<String> cache = new LinkedList<String>();
         	int docCount = 0;
         	for (Text value : inputValues) {
-        		cache.add(value);
+        		cache.add(value.toString());
         		++docCount;
         	}
         	
-        	for (Text value: cache) {
-        		
-        		String[] components = value.toString().split(SEPARATOR);
+        	for(String value : cache) {
+        		String[] components = value.split(SEPARATOR);
         		
         		outputKey.set(inputKey.toString(), Integer.parseInt(components[0]));
         		
