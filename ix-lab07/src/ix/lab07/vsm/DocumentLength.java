@@ -52,8 +52,9 @@ public class DocumentLength {
             TermDocumentPair pair = TermDocumentPair.fromText(inputKey);
             int count = Integer.parseInt(inputValue.toString());
 
-            //TODO
-
+            outputValue.set(pair.getTerm() + SEPARATOR + count);
+            outputKey.set(pair.getDocument());
+            context.write(outputKey, outputValue);
         }
     }
 
