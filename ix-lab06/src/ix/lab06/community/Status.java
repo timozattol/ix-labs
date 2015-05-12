@@ -18,7 +18,6 @@ public class Status {
      * Maximum number of iterations over the nodes in the first step of Louvain
      * method.
      */
-    @SuppressWarnings("unused")
     private final int PASS_MAX = 100;
 
     /**
@@ -159,6 +158,10 @@ public class Status {
         Map<String, Long> neighborsEdges = graph.getEdgesFrom(node);
 
         for(String neighbor : neighborsEdges.keySet()) {
+        	if(neighbor.equals(node)) {
+        		continue;
+        	}
+        	
         	// get the community to which neighbor belongs
         	int community = nodesCommunity.get(neighbor);
         	long weight = neighborsEdges.get(neighbor);
