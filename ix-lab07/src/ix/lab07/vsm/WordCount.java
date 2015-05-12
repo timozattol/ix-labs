@@ -4,9 +4,6 @@ import ix.utils.DocumentTokenization;
 import ix.utils.TermDocumentPair;
 
 import java.io.IOException;
-import java.util.Collection;
-
-import javax.xml.transform.OutputKeys;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -61,7 +58,6 @@ public class WordCount {
      * Input: {key=(<term>,<docID>), vals=[<count1>, <count2>, ...]}
      * Output: {key=(<term>,<docID>), val=sum(<count1>, <count2>, ...)}
      */
-    @SuppressWarnings("unused")
     public static class WordCountReducer
             extends Reducer<TermDocumentPair, IntWritable, TermDocumentPair, IntWritable> {
 

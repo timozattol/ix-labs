@@ -3,7 +3,6 @@ package ix.lab07.vsm;
 import ix.utils.TermDocumentPair;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -65,7 +64,6 @@ public class WordWeight {
      * Input: {key=<term>, vals=[<docID1>:<count1>:<docLength1>, <docID2>:<count2>:<docLength2>, ...]}
      * Output: {key=(<term>,<docID>), val=<weight>} for each document
      */
-    @SuppressWarnings("unused")
     public static class WordWeightReducer extends Reducer<Text, Text, TermDocumentPair, DoubleWritable> {
 
         private TermDocumentPair outputKey = new TermDocumentPair();

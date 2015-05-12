@@ -72,7 +72,6 @@ public class TfIdf extends Configured implements Tool {
      * @param docsWithWords the number of documents containing the word.
      * @return the IDF weight for the term
      */
-    @SuppressWarnings("unused")
     public static double inverseDocFrequency(int docsWithWords) {
         int nbDocs = Constants.NB_IMDB_MOVIES;
 

@@ -40,7 +40,6 @@ public class DocumentLength {
      * Input: {key=(<term>,<docID>), val=<count>}
      * Output: {key=<docID>, val=<term>:<count>}
      */
-    @SuppressWarnings("unused")
     public static class DocumentLengthMapper extends Mapper<Text, Text, IntWritable, Text> {
 
         private IntWritable outputKey = new IntWritable();
