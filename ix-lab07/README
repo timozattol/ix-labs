@@ -1,0 +1,45 @@
+1
+Spend some time inspecting the raw data. Are you able to find your favorite movie in? What
+languages are the plots written in?
+=> Favorite movie found, plots written in English.
+
+2.2
+ For starters, try to search for “James Bond 007”. What
+do you think of the results? Try out different queries
+=>
+
+What movies do you get back when you use this description as a
+query string? Can you explain why “Babe (1981)” has such a high ranking?
+=> The only common word is "modeling", this is strange <==============================
+
+3.1
+We already coded this for you, simply run TermDocumentMatrix
+on the cluster. How many rows and columns does the matrix have?
+=>
+
+Run the Concepts command on the cluster to get a feel of the concepts behind the first
+few dimensions uncovered by the transformation. The first dimension is particularly striking.
+How can you explain what you see?
+=>
+
+LSISearch. Run some queries and compare the results
+to those obtained using the vector space model. What do you think of the results? Are they
+better, worse? Can you get an intuition about what’s happening?
+=>
+
+4
+In the folder data/review-sample you will find a small sample of 8 reviews. Can you
+tell5 which ones are deceptive, and which ones are trutfhul? Do you identify features that
+help you telling them apart?
+=>
+
+4.2
+Add Laplace smoothing to your classifier, and check the performance for varying prior count values
+(try 0.1, 1.0, 10.0) What accuracy can you reach?
+=>
+
+4.3
+Can you write such a review? Use the class Filter to test your attempts. Suppose that you
+are given access to the parameters of the classifier, can you come up with a principled approach to
+craft a review that will be classified as truthful?
+=>
