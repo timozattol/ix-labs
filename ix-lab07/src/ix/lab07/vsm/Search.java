@@ -93,17 +93,22 @@ public class Search extends Configured implements Tool  {
              * will just be the same constant factor for each score).
              */
 
-            //TODO
+        	double sumSquared = 0.0;
+        	double score = 0.0;
 
             for (Text value : inputValues) {
                 String[] parts = value.toString().split(SEPARATOR);
                 String word = parts[0];
                 double weight = Double.parseDouble(parts[1]);
-
-                // ...
-            }
-
-            // ...
+                
+                sumSquared += weight * weight;
+                
+                double queryResult = query.get(word) != null ? query.get(word) : 0.0;
+                score += weight * queryResult;
+            }            
+            
+            outputValue.set(score / Math.sqrt(sumSquared));
+            context.write(inputKey, outputValue);
         }
 
         @Override
