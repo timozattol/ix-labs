@@ -25,17 +25,45 @@ between the ix description and Babe.
 3.1
 We already coded this for you, simply run TermDocumentMatrix
 on the cluster. How many rows and columns does the matrix have?
-=>
+=> 196848 (n of movies) = columns
+    ? (n of different terms) = rows
+The matrix is binary, we don't know how to read from it 
 
 Run the Concepts command on the cluster to get a feel of the concepts behind the first
 few dimensions uncovered by the transformation. The first dimension is particularly striking.
 How can you explain what you see?
-=>
+=> Yes, the first dimension seems to classify terms as "common" or not. Words that appear in many descriptions have high value, words that appear in one of few descriptions have low value.
+Dimension 2 seems to separates "art" <--> "violence"
+Others are not very obvious
 
 LSISearch. Run some queries and compare the results
 to those obtained using the vector space model. What do you think of the results? Are they
 better, worse? Can you get an intuition about what’s happening?
 =>
+
+James Bond 007:
+01. True Bond (2007) (TV) (score: 0.34947)
+02. The Last Call (2012/I) (score: 0.33277)
+03. La faute des autres (1923) (score: 0.33029)
+04. Donna James & Gary (2006) (score: 0.32230)
+05. A Boost of Love (2012) (score: 0.31848)
+06. One Goal, One Hope (2010) (score: 0.31822)
+07. Massa'ot James Be'eretz Hakodesh (2003) (score: 0.30906)
+08. Down the Coast (2011) (score: 0.30686)
+09. Above Suspicion (2000) (score: 0.30353)
+10. On Her Majesty's Secret Service (1969) (score: 0.29841)
+11. Resonance (2011) (score: 0.29829)
+12. James Bond: Shaken and Stirred (1997) (TV) (score: 0.29609)
+13. Casino Royale (1967) (score: 0.29152)
+14. James Bond: Licence to Thrill (1987) (TV) (score: 0.28864)
+15. Beyond Loch Ness (2008) (TV) (score: 0.28769)
+16. Crystal Jam (2010) (score: 0.28709)
+17. On/Off (2003) (score: 0.28609)
+18. Protege (2009) (score: 0.28378)
+19. James (2008) (score: 0.28241)
+20. Someday This Pain Will Be Useful to You (2011) (score: 0.27679)
+
+
 
 4
 In the folder data/review-sample you will find a small sample of 8 reviews. Can you
