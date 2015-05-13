@@ -8,6 +8,28 @@ languages are the plots written in?
 do you think of the results? Try out different queries
 => Works very well, we also tried Lord of the rings, almost all the results are related to the search.
 
+For James Bond 007:
+01. Dr. No (1962) (score: 0.97655)
+02. James Bond: Shaken and Stirred (1997) (TV) (score: 0.93868)
+03. Casino Royale (1967) (score: 0.88774)
+04. The World Is Not Enough (1999) (score: 0.76798)
+05. The Living Daylights (1987) (score: 0.74025)
+06. Die Another Day (2002) (score: 0.73592)
+07. The Making of 'The World Is Not Enough' (1999) (V) (score: 0.70328)
+08. Zero Posterity (2006) (V) (score: 0.68285)
+09. On Her Majesty's Secret Service (1969) (score: 0.68193)
+10. Licence to Kill (1989) (score: 0.66520)
+11. True Bond (2007) (TV) (score: 0.66456)
+12. The Goldfinger Phenomenon (1995) (V) (score: 0.66218)
+13. James Bond: Licence to Thrill (1987) (TV) (score: 0.64977)
+14. Ian Fleming on Desert Island Discs (2006) (V) (score: 0.64037)
+15. Never Say Never Again (1983) (score: 0.63990)
+16. Donna James & Gary (2006) (score: 0.62717)
+17. Tomorrow Never Dies (1997) (score: 0.61642)
+18. The Last Call (2012/I) (score: 0.61544)
+19. Live and Let Die (1973) (score: 0.61257)
+20. La faute des autres (1923) (score: 0.59509)
+
 What movies do you get back when you use this description as a
 query string? Can you explain why “Babe (1981)” has such a high ranking?
 => 
@@ -27,7 +49,9 @@ We already coded this for you, simply run TermDocumentMatrix
 on the cluster. How many rows and columns does the matrix have?
 => 196848 (n of movies) = columns
     ? (n of different terms) = rows
-The matrix is binary, we don't know how to read from it 
+The matrix is binary, we then tried "hadoop fs -text term-doc-matrix/* | wc -l"
+to count the number of lines in every part-r-xxx, which gives:
+161514
 
 Run the Concepts command on the cluster to get a feel of the concepts behind the first
 few dimensions uncovered by the transformation. The first dimension is particularly striking.
