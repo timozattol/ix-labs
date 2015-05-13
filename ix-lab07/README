@@ -39,7 +39,9 @@ Others are not very obvious
 LSISearch. Run some queries and compare the results
 to those obtained using the vector space model. What do you think of the results? Are they
 better, worse? Can you get an intuition about what’s happening?
-=>
+=> They are worse when we search for few words, and ok ish for a full description of a movie.
+This is logical because searching for literally james bond will only get other james bond movies, 
+whereas searching for the plot of james bond will give other action/thrillers when looking at concepts.
 
 James Bond 007:
 01. True Bond (2007) (TV) (score: 0.34947)
