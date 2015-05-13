@@ -6,11 +6,21 @@ languages are the plots written in?
 2.2
  For starters, try to search for “James Bond 007”. What
 do you think of the results? Try out different queries
-=>
+=> Works very well, we also tried Lord of the rings, almost all the results are related to the search.
 
 What movies do you get back when you use this description as a
 query string? Can you explain why “Babe (1981)” has such a high ranking?
-=> The only common word is "modeling", this is strange <==============================
+=> 
+01. Paintbrush (2008) (score: 1.12490)
+02. Babe (1981) (score: 0.97120)
+03. Have I Shared Too Much? (2011) (score: 0.96333)
+04. Eu Odeio o Orkut (2011) (score: 0.82655)
+05. I Love Alaska (2009) (score: 0.81054)
+
+The only common word is "modeling", this is strange. After searching for "modeling",
+Babe is third. Maybe it's one of the only film that contains this word in its 
+description, and thus "modeling" has a big tf-idf, boosting the cosine-similarity 
+between the ix description and Babe.
 
 3.1
 We already coded this for you, simply run TermDocumentMatrix
@@ -31,7 +41,9 @@ better, worse? Can you get an intuition about what’s happening?
 In the folder data/review-sample you will find a small sample of 8 reviews. Can you
 tell5 which ones are deceptive, and which ones are trutfhul? Do you identify features that
 help you telling them apart?
-=>
+=> "Reference to other hotels" make us think that the review is truthful. Also when very precise "stories" are
+told, it seems truthful. On the other hand, when the person employs generic words as "much, very, many, etc." or
+is being vague, the review seems deceptive. But honestly it's hard to tell.
 
 4.2
 Add Laplace smoothing to your classifier, and check the performance for varying prior count values
