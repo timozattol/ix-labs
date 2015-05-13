@@ -27,7 +27,10 @@ public class ReviewClassifier {
      * @param vocab the vocabulary
      */
     public ReviewClassifier(Iterable<String> vocab) {
-        // TODO
+        for (String v : vocab) {
+			wordDeceptiveOccurrences.put(v, 0);
+			wordTruthOccurrences.put(v, 0);
+		}
     }
 
 
