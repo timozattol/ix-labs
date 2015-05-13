@@ -42,9 +42,7 @@ public class ReviewClassifier {
         // associated label.
         // The goal is to learn the label-conditional word probabilities
         // p(w | c), by looking at the frequency of occurrence of each word.
-    	
-    	
-    	
+
         for(DataPoint point : data) {
         	for(String word : Sets.newHashSet(point.words())) {
         		if(point.type == Label.DECEPTIVE) {
@@ -66,8 +64,15 @@ public class ReviewClassifier {
      * @return the predicted label of the reivew
      */
     public Label predict(Iterable<String> words) {
-        // TODO
-        return null;
+    	double sumDeceptive = 0.0;
+    	double sumTruth = 0.0;
+    	
+        for(String word : words) {
+        	sumDeceptive += Math.log(wordDeceptiveOccurrences.get(word) / wordDeceptiveNumber);
+        	sumTruth += Math.log(wordTruthOccurrences.get(word) / wordTruthNumber);
+        }
+        
+        return sumDeceptive > sumTruth ? Label.DECEPTIVE : Label.TRUTHFUL;
     }
     
     
