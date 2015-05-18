@@ -111,10 +111,10 @@ is being vague, the review seems deceptive. But honestly it's hard to tell.
 4.2
 Add Laplace smoothing to your classifier, and check the performance for varying prior count values
 (try 0.1, 1.0, 10.0) What accuracy can you reach?
-=>
+=> No laplace smoothing: 59%, Laplace smoothing: 0.1 = 1.0 => 86%, 10.0 => 78%.
 
 4.3
 Can you write such a review? Use the class Filter to test your attempts. Suppose that you
 are given access to the parameters of the classifier, can you come up with a principled approach to
 craft a review that will be classified as truthful?
-=>
+=> 
