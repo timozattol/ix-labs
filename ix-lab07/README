@@ -117,4 +117,12 @@ Add Laplace smoothing to your classifier, and check the performance for varying 
 Can you write such a review? Use the class Filter to test your attempts. Suppose that you
 are given access to the parameters of the classifier, can you come up with a principled approach to
 craft a review that will be classified as truthful?
-=> 
+=> We think that short phrases with only facts are considered as deceptive, real customers use
+emotions and details when describing such an experience. Also, negating certain words such as
+"horrible, threatened, safety" is not a good idea since they are mostly utilized in negative fake
+reviews.
+
+
+A hand_crafted review that fooled the test:
+"I was travelling for work, and needed a peaceful place with wifi and breakfast, in order to attend 
+an early morning conference. Fortunately, breakfast is already served starting 6 am which is quite uncommon."
