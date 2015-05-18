@@ -1,9 +1,8 @@
 package ix.lab07.reviews;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+
 
 import com.google.common.collect.Sets;
 
@@ -14,10 +13,10 @@ import ix.utils.Label;
 public class ReviewClassifier {
 
 	
-	Map<String, Integer> wordDeceptiveOccurrences = new HashMap<String, Integer>();
+	Map<String, Double> wordDeceptiveOccurrences = new HashMap<String, Double>();
 	int wordDeceptiveNumber = 0;
 	
-	Map<String, Integer> wordTruthOccurrences = new HashMap<String, Integer>();
+	Map<String, Double> wordTruthOccurrences = new HashMap<String, Double>();
 	int wordTruthNumber = 0;
 	
     /**
@@ -27,9 +26,10 @@ public class ReviewClassifier {
      * @param vocab the vocabulary
      */
     public ReviewClassifier(Iterable<String> vocab) {
+    	// Laplace smoothing
         for (String v : vocab) {
-			wordDeceptiveOccurrences.put(v, 0);
-			wordTruthOccurrences.put(v, 0);
+			wordDeceptiveOccurrences.put(v, 1.0);
+			wordTruthOccurrences.put(v, 1.0);
 		}
     }
 
@@ -71,16 +71,16 @@ public class ReviewClassifier {
     	double sumTruth = 0.0;
     	
         for(String word : words) {
-        	sumDeceptive += Math.log(wordDeceptiveOccurrences.get(word) / wordDeceptiveNumber);
-        	sumTruth += Math.log(wordTruthOccurrences.get(word) / wordTruthNumber);
+        	sumDeceptive += Math.log(wordDeceptiveOccurrences.get(word) / (double) wordDeceptiveNumber);
+        	sumTruth += Math.log(wordTruthOccurrences.get(word) / (double) wordTruthNumber);
         }
         
         return sumDeceptive > sumTruth ? Label.DECEPTIVE : Label.TRUTHFUL;
     }
     
     
-    private void incrementMap(Map<String, Integer> map, String key) {
-    	int count = map.containsKey(key) ? map.get(key) : 0;
+    private void incrementMap(Map<String, Double> map, String key) {
+    	double count = map.containsKey(key) ? map.get(key) : 0.0;
     	map.put(key, count + 1);
     }
 }
