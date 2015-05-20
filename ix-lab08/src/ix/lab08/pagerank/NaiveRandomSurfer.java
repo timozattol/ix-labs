@@ -1,6 +1,7 @@
 package ix.lab08.pagerank;
 
 import java.util.List;
+import java.util.Random;
 
 import utils.Graph;
 import utils.PageRank;
@@ -18,8 +19,22 @@ public class NaiveRandomSurfer implements PageRankAlgorithm {
     public PageRank compute(Graph graph) {
         int nbNodes = graph.size();
         double[] probabilities = new double[nbNodes];
+        Random r = new Random();
 
-        // TODO Implement the naive random surfer model for PageRank.
+        int currentNode = r.nextInt(nbNodes);
+        List<Integer> currentNeighbors;
+        
+        for (int i = 0; i < NB_ITERATIONS; i++) {
+			currentNeighbors = graph.neighbors(currentNode);
+			
+			currentNode = currentNeighbors.get(r.nextInt(currentNeighbors.size()));
+
+			++probabilities[currentNode];
+		}
+        
+        for (int i = 0; i < nbNodes; i++) {
+			probabilities[i] /= NB_ITERATIONS;
+		}
 
         return new PageRank(graph, probabilities);
     }
