@@ -14,7 +14,6 @@ import utils.PageRank;
 public class RandomSurfer implements PageRankAlgorithm {
 
     private static final int NB_ITERATIONS = 1000000;
-    private static final double DAMPLING_FACTOR = 0.15;
 
     @Override
     public PageRank compute(Graph graph) {

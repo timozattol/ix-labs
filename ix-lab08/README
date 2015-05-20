@@ -12,3 +12,8 @@ want to run our naive random surfer implementation on them?
 Yes, absorbing.graph has a node whose outdegree is zero, thus the program will fail. 
 Also, components.graph has two disconnected components so the outcome depends on the 
 starting node.
+
+* Run your implementation of NaiveRandomSurfer on these two graphs. What happens?
+
+First one fails (random.nextInt(0) can't work), second one gives zero probabilities
+for one of the component at random (depending on where it starts).
