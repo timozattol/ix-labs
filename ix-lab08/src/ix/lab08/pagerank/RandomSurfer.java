@@ -14,14 +14,36 @@ import utils.PageRank;
 public class RandomSurfer implements PageRankAlgorithm {
 
     private static final int NB_ITERATIONS = 1000000;
+    private static final double DAMPLING_FACTOR = 0.15;
 
     @Override
     public PageRank compute(Graph graph) {
         int nbNodes = graph.size();
         double[] probabilities = new double[nbNodes];
+        Random r = new Random();
 
-        // TODO Implement the random surfer model for PageRank.
-        // Take care of the issues we had in the naive implementation.
+        int currentNode = r.nextInt(nbNodes);
+        List<Integer> currentNeighbors;
+
+        for (int i = 0; i < NB_ITERATIONS; i++) {
+			currentNeighbors = graph.neighbors(currentNode);
+			
+			if (currentNeighbors.size() == 0 || r.nextDouble() < DAMPING_FACTOR) {
+				// Jump to any node at random
+				currentNode = r.nextInt(nbNodes);
+			} else {
+				// Jump to a neighboring node at random
+				currentNode = currentNeighbors.get(r.nextInt(currentNeighbors.size()));
+			}
+
+			
+
+			++probabilities[currentNode];
+		}
+
+        for (int i = 0; i < nbNodes; i++) {
+			probabilities[i] /= NB_ITERATIONS;
+		}
 
         return new PageRank(graph, probabilities);
     }
