@@ -1,0 +1,14 @@
+* Look at the graph depicted in Figure 1. Intuitively, can you order the 5 nodes by decreasing
+PageRank score? Imagine that you follow a random walk in the graph and count the proportion
+of times you land on each node
+
+1 = 2 = 3 > 0 > 4
+
+
+* Consider the two graphs components.graph and absorbing.graph. As explained before,
+you can use scripts/draw.py to draw these graphs. Can you identify any problems if we
+want to run our naive random surfer implementation on them?
+
+Yes, absorbing.graph has a node whose outdegree is zero, thus the program will fail. 
+Also, components.graph has two disconnected components so the outcome depends on the 
+starting node.
