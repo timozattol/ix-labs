@@ -1,7 +1,1 @@
-SUPER PROJET 
-=====
-
-hai
-
-
-(c) Timothée Zattol & Cedric Kooc
+Internet Analytics Labs - EPFL 2015
